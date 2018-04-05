@@ -2,7 +2,7 @@
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
-fs = require("fs");
+const fs = require("fs");
 
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').load();
@@ -17,22 +17,22 @@ fs.readdir("./events/", (err, files) => {
       // super-secret recipe to call events with all their proper arguments *after* the `client` var.
       client.on(eventName, (...args) => eventFunction.run(client, ...args));
     });
-  });
+});
 
-let prefix = "$";
+let prefix = "a$";
 client.on("message", (message) => {
     if (message.author.bot) return;
-    if (!message.content.indexOf(prefix) !== 0) return;
+    if (!message.content.startsWith(prefix)) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-    
+
     try {
         let commandFile = require(`./commands/${command}.js`);
         commandFile.run(client, message, args);
-      } catch (err) {
+    } catch (err) {
         console.error(err);
-      }
+    }
 });
 
 client.login(process.env.TOKEN);
