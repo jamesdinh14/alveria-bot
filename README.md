@@ -2,9 +2,9 @@
 Repository for the Alveria bot on Discord. Contains special Saru phrases and other message manipulations.
 
 # Requirements
-- `git` command line installed
-- `node` version 8.0 or greater
-- `npm` version 5.0 or greater (comes automatically with Node.js)
+- `git` [command line](https://git-scm.com/downloads "Git downloads page") installed
+- `node` [version 8.0 or greater](https://nodejs.org/en/download/ "Node.js downloads page")
+- `npm` [version 5.0 or greater](https://nodejs.org/en/download/ "Node.js downloads page") (comes automatically with Node.js)
 
 # Downloading
 1. Open git bash or terminal of choice.
@@ -21,11 +21,11 @@ Run `node main.js` in the main project directory
 
 # Special Thanks
 AnIdiotsGuide's Guidebot and tutorial for making it easy to learn how to make a Discord bot.
-- Repository: https://github.com/AnIdiotsGuide/guidebot
-- Gitbooks: https://anidiotsguide_old.gitbooks.io/discord-js-bot-guide/content/
+- Repository: <https://github.com/AnIdiotsGuide/guidebot>
+- Gitbooks: <https://anidiotsguide_old.gitbooks.io/discord-js-bot-guide/content/>
 
 
 # Technologies
-- `Node.js` for development language
-- `VSCode` for text editor development
-- `Heroku` for deployment
+- [Node.js](https://nodejs.org/en/) for development language
+- [VSCode](https://code.visualstudio.com) for text editor development
+- [Heroku](https://www.heroku.com) for deployment
