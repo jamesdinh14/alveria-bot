@@ -1,0 +1,32 @@
+{
+  "name": "alveria-bot",
+  "version": "1.0.0",
+  "description": "Bot built for Preemptive. Contains special Saru phrases and other fun message manipulations.",
+  "main": "main.js",
+  "engines": {
+    "node": "8.x",
+    "npm": "5.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesdinh14/alveriabot.git"
+  },
+  "keywords": [
+    "alveria",
+    "Alveria"
+  ],
+  "author": "MenjiShad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamesdinh14/alveriabot/issues"
+  },
+  "homepage": "https://github.com/jamesdinh14/alveriabot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "dotenv": "^5.0.1"
+  }
+}
