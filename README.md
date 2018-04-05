@@ -4,6 +4,7 @@ Repository for the Alveria bot on Discord. Contains special Saru phrases and oth
 # Requirements
 - `git` command line installed
 - `node` version 8.0 or greater
+- `npm` version 5.0 or greater (comes automatically with Node.js)
 
 # Downloading
 1. Open git bash or terminal of choice.
@@ -17,6 +18,12 @@ Repository for the Alveria bot on Discord. Contains special Saru phrases and oth
 
 # Starting the bot
 Run `node main.js` in the main project directory
+
+# Special Thanks
+AnIdiotsGuide's Guidebot and tutorial for making it easy to learn how to make a Discord bot.
+- Repository: https://github.com/AnIdiotsGuide/guidebot
+- Gitbooks: https://anidiotsguide_old.gitbooks.io/discord-js-bot-guide/content/
+
 
 # Technologies
 - `Node.js` for development language
