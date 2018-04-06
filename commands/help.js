@@ -1,8 +1,8 @@
+// Courtesy of guidebot for the base help.js
+
 exports.run = (client, message, args) => {
      // If no specific command is called, show all filtered commands.
-  if (!args[0]) {
-    // Filter all commands by which are available for the user's level, using the <Collection>.filter() method.
-    //const myCommands = message.guild ? client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level) : client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level &&  cmd.conf.guildOnly !== true);
+  if (!args[0]) {    
     // Here we have to get the command names only, and we use that array to get the longest name.
     // This make the help commands "aligned" in the output.
     const commandNames = client.commands.keyArray();

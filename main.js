@@ -1,22 +1,28 @@
 'use strict mode';
 
+// Load all the required libraries
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require("fs");
 const { promisify } = require('util');
 const readdir = promisify(require("fs").readdir);
 const Enmap = require('enmap');
+
+// Initialize variables
 client.commands = new Enmap();
 client.prefix = "a$";
 
 require('./functions.js')(client);
 client.logger = require("./util/Logger");
 
+// Load the .env file which contains the environment variables
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').load();
 }
 
+// Async wrapper. Courtesy of guidebot
 const init = async () => {
+    // Load commands
     const cmdFiles = await readdir("./commands/");
     cmdFiles.forEach(f => {
         if (!f.endsWith(".js")) return;
@@ -34,7 +40,7 @@ const init = async () => {
         client.on(eventName, event.bind(null, client));
         delete require.cache[require.resolve(`./events/${file}`)];
     });
-    
+
 };
 
 init();
@@ -51,9 +57,12 @@ fs.readdir("./events/", (err, files) => {
 });
 
 client.on("message", (message) => {
+    // Will not respond to a bot or if the prefix is not there
     if (message.author.bot) return;
     if (!message.content.startsWith(client.prefix)) return;
 
+    // Split the prefix, command, and arguments
+    // Courtesy of guidebot
     const args = message.content.slice(client.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
@@ -63,12 +72,14 @@ client.on("message", (message) => {
         return;
     }
 
+    // Try to run the command
     try {
         let commandFile = require(`./commands/${command}.js`);
         commandFile.run(client, message, args);
     } catch (err) {
-        console.error(err);
+        client.logger.error(err);
     }
 });
 
+// Bot login using the token, stored as an environment variable
 client.login(process.env.TOKEN);

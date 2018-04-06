@@ -1,4 +1,6 @@
 module.exports = (client) => {
+  // Prepares the commands collection
+  // Courtesy of guidebot
   client.loadCommand = (commandName) => {
     try {
       const props = require(`./commands/${commandName}`);
@@ -13,31 +15,7 @@ module.exports = (client) => {
     }
   };
 
-  client.readFromTextFile = (input) => {
-    var remaining = '';
-    var output = [];
-
-    input.on('data', function(data) {
-      remaining += data;
-      var index = remaining.indexOf('\n');
-      var last = 0;
-      while (index > -1) {
-        var line = remaining.substring(last, index);
-        last = index + 1;
-        output.push(remaining);
-        index = remaining.indexOf('\n', last);
-      }
-
-      remaining = remaining.substring(last);
-    });
-
-    input.on('end', function() {
-      if (remaining.length > 0) {
-        return output;
-      }
-    });
-  }
-
+  // Courtesy of Finbarr on stackoverflow. https://stackoverflow.com/a/6832105
   client.readFromFile = (inputFileName) => {
     var fs = require('fs');
     return fs.readFileSync(inputFileName).toString().split('\n');

@@ -1,6 +1,8 @@
 exports.run = (client, message, args) => {
+    // Read the phrases from a file
     var phrases = client.readFromFile("saru_phrases.txt");
 
+    // Select one at random
     message.channel.send(phrases.random());
 }
 
