@@ -1,7 +1,7 @@
 exports.run = (client, message, args) => {
     // Takes all the arguments and changes it to a long string with spaces in between
     var spacedString = args.join('').split('').join(' ').replaceAll(',', ' ');
-    return spacedString;
+    message.channel.send(spacedString);
 }
 
 exports.help = {
