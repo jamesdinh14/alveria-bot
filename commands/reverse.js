@@ -9,5 +9,5 @@ exports.run = (client, message, ...args) => {
 exports.help = {
     name: "reverse",
     description: "Reverses the given argument",
-    usage: "reverse <argument>"
+    usage: "reverse [arguments]"
 }
