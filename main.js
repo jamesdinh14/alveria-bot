@@ -59,7 +59,7 @@ client.on("message", (message) => {
 
     // Check to see if input command is valid
     if (!client.commands.has(`${command}`)){
-        console.log("Command does not exist.");
+        message.channel.send("Doesn't look like I know this command. Use a$help to see all my commands.");
         return;
     }
 
