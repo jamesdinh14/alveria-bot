@@ -22,7 +22,8 @@ exports.run = (client, message, args) => {
             count++;
         })
 
-        message.channel.send(`${message.member.nickname} appreciates ${membersDisplay.join(" ")}!`);
+        let messageSend = `${message.member.nickname} appreciates ${membersDisplay.join(" ")}!`;
+        client.sendMessage(message, messageSend);
     } else if (message.mentions.roles.first()) {
         let mentionedRoles = [];
         let mentionedRolesDisplay = [];
@@ -41,10 +42,12 @@ exports.run = (client, message, args) => {
             count++;
         });
 
-        message.channel.send(`${message.member.nickname} appreciates ${mentionedRolesDisplay.join(" ")}`);
+        let messageSend = `${message.member.nickname} appreciates ${mentionedRolesDisplay.join(" ")}!`;
+        client.sendMessage(message, messageSend);
     }
-    else if (args) {
-        message.channel.send(`${message.member.nickname} appreciates ${args.join(" ")}!`);
+    else if (args.length !== 0) {
+        let messageSend = (`${message.member.nickname} appreciates ${args.join(" ")}!`);
+        client.sendMessage(message, messageSend);
     }
     else {
         message.reply("Invalid use.");
