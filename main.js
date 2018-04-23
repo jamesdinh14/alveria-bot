@@ -57,6 +57,20 @@ fs.readdir("./events/", (err, files) => {
 });
 
 client.on("message", (message) => {
+
+    let possibleGreetings = ["hello", "hi", "yo", "greetings", "good morning", "morning", "good afternoon",
+         "afternoon", "good evening", "evening", "hoi", "howdy", "sup", "wassup", "what's up"];
+
+    let possibleReferences = ["alveria", "guys", "y'all", "all you", "everyone"];
+    // Respond to greetings
+    possibleGreetings.forEach(greeting => {
+        possibleReferences.forEach(reference => {
+            if (message.content.toLowerCase().startsWith(greeting + " " + reference)) {
+                message.reply("Hello");
+            }
+        })
+    });
+
     // Will not respond to a bot or if the prefix is not there
     if (message.author.bot) return;
     if (!message.content.startsWith(client.prefix)) return;
