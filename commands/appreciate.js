@@ -1,48 +1,24 @@
 exports.run = (client, message, args) => {
     // Select the first person mentioned and send a message
     if (message.mentions.members.first()) {
-        let members = [];
-        let membersDisplay = [];
-        
-        message.mentions.members.forEach(member => {
-            members.push(member);
+        let mentionedMembers = message.mentions.members.array();
+        let mentionedMembersNames = [];
+        mentionedMembers.forEach(member => {
+            mentionedMembersNames.push((member.nickname)? member.nickname : member.user.username);
         });
 
-        let count = 0;
-        members.forEach(member => {
-            if (count === members.length - 1 && members.length > 1) {
-                membersDisplay.push("and");
-            }
-            
-            if (!member.nickname) {
-                membersDisplay.push(member.user.username);
-            } else {
-                membersDisplay.push(member.nickname);
-            }
-            count++;
-        })
-
-        let messageSend = `${message.member.nickname} appreciates ${membersDisplay.join(" ")}!`;
+        let mentionedMembersFormatted = client.formatArguments(mentionedMembersNames);
+        let messageSend = `${message.member.nickname} appreciates ${mentionedMembersFormatted}!`;
         client.sendMessage(message, messageSend);
     } else if (message.mentions.roles.first()) {
-        let mentionedRoles = [];
-        let mentionedRolesDisplay = [];
-
+        let mentionedRoles = message.mentions.roles.array();
+        let mentionedRolesNames = [];
         message.mentions.roles.forEach(role => {
-            mentionedRoles.push(role.name);
+            mentionedRolesNames.push(role.name);
         });
 
-        let count = 0;
-        mentionedRoles.forEach(roleName => {
-            // Add "and" to the 2nd to last position
-            if (count === mentionedRoles.length - 1 && mentionedRoles.length > 1) {
-                mentionedRolesDisplay.push("and");
-            }
-            mentionedRolesDisplay.push(roleName);
-            count++;
-        });
-
-        let messageSend = `${message.member.nickname} appreciates ${mentionedRolesDisplay.join(" ")}!`;
+        let mentionedRolesFormatted = client.formatArguments(mentionedRolesNames);
+        let messageSend = `${message.member.nickname} appreciates ${mentionedRolesFormatted}!`;
         client.sendMessage(message, messageSend);
     }
     else if (args.length !== 0) {
@@ -57,5 +33,5 @@ exports.run = (client, message, args) => {
 exports.help = {
     name: "appreciate",
     description: "Appreciate a user",
-    usage: "appreciate <user>"
+    usage: "appreciate <users> <roles>"
 }
