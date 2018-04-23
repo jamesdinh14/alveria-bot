@@ -19,7 +19,11 @@ module.exports = (client) => {
   client.readFromFile = (inputFileName) => {
     var fs = require('fs');
     return fs.readFileSync(inputFileName).toString().split('\n');
-  }
+  };
+
+  client.sendMessage = (message, messageToBeSent) => {
+    message.channel.send(messageToBeSent);
+  };
 
   // Courtesy of guidebot
   // <Array>.random() returns a single random element from an array
