@@ -1,24 +1,20 @@
 exports.run = (client, message, args) => {
     // Select the first person mentioned and send a message
-    if (message.mentions.members.first()) {
+    if (message.mentions.members.first() || message.mentions.roles.first()) {
         let mentionedMembers = message.mentions.members.array();
-        let mentionedMembersNames = [];
-        mentionedMembers.forEach(member => {
-            mentionedMembersNames.push((member.nickname)? member.nickname : member.user.username);
-        });
-
-        let mentionedMembersFormatted = client.formatArguments(mentionedMembersNames);
-        let messageSend = `${message.member.nickname} appreciates ${mentionedMembersFormatted}!`;
-        client.sendMessage(message, messageSend);
-    } else if (message.mentions.roles.first()) {
         let mentionedRoles = message.mentions.roles.array();
-        let mentionedRolesNames = [];
-        message.mentions.roles.forEach(role => {
-            mentionedRolesNames.push(role.name);
+        let mentionedNames = [];
+
+        mentionedMembers.forEach(member => {
+            mentionedNames.push((member.nickname)? member.nickname : member.user.username);
         });
 
-        let mentionedRolesFormatted = client.formatArguments(mentionedRolesNames);
-        let messageSend = `${message.member.nickname} appreciates ${mentionedRolesFormatted}!`;
+        mentionedRoles.forEach(role => {
+            mentionedNames.push(role.name);
+        });
+
+        let mentionedNamesFormatted = client.formatArguments(mentionedNames);
+        let messageSend = `${message.member.nickname} appreciates ${mentionedNamesFormatted}!`;
         client.sendMessage(message, messageSend);
     }
     else if (args.length !== 0) {
@@ -32,6 +28,6 @@ exports.run = (client, message, args) => {
 
 exports.help = {
     name: "appreciate",
-    description: "Appreciate a user",
-    usage: "appreciate <users> <roles>"
+    description: "Show your appreciation for anything and anyone",
+    usage: "a$appreciate [users] [roles] [args]"
 }
