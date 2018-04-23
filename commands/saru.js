@@ -3,7 +3,7 @@ exports.run = (client, message, args) => {
     var phrases = client.readFromFile("saru_phrases.txt");
 
     // Select one at random
-    message.channel.send(phrases.random());
+    client.sendMessage(message, phrases.random());
 }
 
 exports.help = {
