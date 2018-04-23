@@ -1,7 +1,7 @@
 exports.run = (client, message, args) => {
 
     if (message.mentions.members.first() || message.mentions.roles.first()) {
-        // Select all the users mentioned and send them a birthday message
+        // Select all the users/roles mentioned and send them a birthday message
         let birthdayPeople = message.mentions.members.array();
         let birthdayRoles = message.mentions.roles.array();
         let birthdayNames = [];
@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
 
         birthdayRoles.forEach(role => {
             birthdayNames.push(role.name);
-        })
+        });
 
         let birthdayNamesFormatted = client.formatArguments(birthdayNames);
 
