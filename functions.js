@@ -40,7 +40,10 @@ module.exports = (client) => {
       } else {
         outString = inputArray.join(" ");
       }
+    } else {
+      outString = inputArray[0];
     }
+
     return outString;
   }
 
