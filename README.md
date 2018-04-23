@@ -26,6 +26,15 @@ AnIdiotsGuide's Guidebot and tutorial for making it easy to learn how to make a 
 
 
 # Technologies
-- [Node.js](https://nodejs.org/en/) for development language
-- [VSCode](https://code.visualstudio.com) for text editor development
+- [JavaScript](https://www.javascript.com) for development
+- [Node.js](https://nodejs.org/en/) for JavaScript runtime
+- [VSCode](https://code.visualstudio.com) for development environment
 - [Heroku](https://www.heroku.com) for deployment
+
+# Invite Alveria
+- [Invite link](https://discordapp.com/oauth2/authorize?client_id=431277455802761216&scope=bot&permissions=76800)
+- Permissions:
+  - Manage messages
+  - Read messages
+  - Send messages
+  - View Channel
