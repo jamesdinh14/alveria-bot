@@ -47,6 +47,10 @@ module.exports = (client) => {
     return outString;
   }
 
+  client.isSaru = (message) => {
+    return message.author.id === process.env.SARU_ID;
+  }
+
   // Courtesy of guidebot
   // <Array>.random() returns a single random element from an array
   // [1, 2, 3, 4, 5].random() can return 1, 2, 3, 4 or 5.

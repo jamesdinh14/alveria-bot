@@ -61,6 +61,10 @@ client.on("message", (message) => {
     // Will not respond to a bot or if the prefix is not there
     if (message.author.bot) return;
 
+    if (client.isSaru(message)) {
+        message.channel.send("Look who it is");
+    }
+
     let possibleGreetings = ["hello", "hi", "yo", "hey", "greetings", "good morning", "morning", "good afternoon",
         "afternoon", "good evening", "evening", "hoi", "howdy", "sup", "wassup", "what's up"];
     let possibleReferences = ["alveria", "guys", "y'all", "all you", "everyone", "everybody"];
@@ -69,15 +73,20 @@ client.on("message", (message) => {
     possibleGreetings.forEach(greeting => {
         possibleReferences.forEach(reference => {
             if (message.content.toLowerCase().startsWith(greeting + " " + reference)) {
-                message.reply("Hello");
-                return;
+                if (client.isSaru(message)) {
+                    message.reply("Hello...");
+                } else {
+                    message.reply("Hello");
+                    return;
+                }
+                
             }
         });
     });
 
     // Respond to "I love you"
     let possibleLoves = ["i love you", "i love", "ily", "<3"];
-    if (message.content.toLowerCase().startsWith(possibleLoves + " Alveria")) {
+    if (message.content.toLowerCase().startsWith(possibleLoves + " Alveria") && !client.isSaru(message)) {
         message.reply("I love you too!");
         return;
     }
