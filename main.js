@@ -49,30 +49,37 @@ init();
 fs.readdir("./events/", (err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
-      let eventFunction = require(`./events/${file}`);
-      let eventName = file.split(".")[0];
-      // super-secret recipe to call events with all their proper arguments *after* the `client` var.
-      client.on(eventName, (...args) => eventFunction.run(client, ...args));
+        let eventFunction = require(`./events/${file}`);
+        let eventName = file.split(".")[0];
+        // super-secret recipe to call events with all their proper arguments *after* the `client` var.
+        client.on(eventName, (...args) => eventFunction.run(client, ...args));
     });
 });
 
 client.on("message", (message) => {
 
-    let possibleGreetings = ["hello", "hi", "yo", "greetings", "good morning", "morning", "good afternoon",
-         "afternoon", "good evening", "evening", "hoi", "howdy", "sup", "wassup", "what's up"];
+    // Will not respond to a bot or if the prefix is not there
+    if (message.author.bot) return;
 
-    let possibleReferences = ["alveria", "guys", "y'all", "all you", "everyone"];
+    let possibleGreetings = ["hello", "hi", "yo", "hey", "greetings", "good morning", "morning", "good afternoon",
+        "afternoon", "good evening", "evening", "hoi", "howdy", "sup", "wassup", "what's up"];
+    let possibleReferences = ["alveria", "guys", "y'all", "all you", "everyone", "everybody"];
+
     // Respond to greetings
     possibleGreetings.forEach(greeting => {
         possibleReferences.forEach(reference => {
             if (message.content.toLowerCase().startsWith(greeting + " " + reference)) {
                 message.reply("Hello");
             }
-        })
+        });
     });
 
-    // Will not respond to a bot or if the prefix is not there
-    if (message.author.bot) return;
+    let possibleLoves = ["I love you", "I love", "ily", "<3"];
+    if (message.content.toLowerCase().startsWith(possibleLoves + " Alveria")) {
+        message.reply("I love you too!");
+    }
+
+    // 
     if (!message.content.startsWith(client.prefix)) return;
 
     // Split the prefix, command, and arguments
@@ -81,7 +88,7 @@ client.on("message", (message) => {
     const command = args.shift().toLowerCase();
 
     // Check to see if input command is valid
-    if (!client.commands.has(`${command}`)){
+    if (!client.commands.has(`${command}`)) {
         message.channel.send("Doesn't look like I know this command. Use a$help to see all my commands.");
         return;
     }
