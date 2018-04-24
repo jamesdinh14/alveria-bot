@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
         client.sendMessage(message, messageSend);
     }
     else if (args.length !== 0) {
-        let messageSend = (`${message.member.nickname? message.member.nickname : message.member.user.username} appreciates ${args.join(" ")}!`);
+        let messageSend = `${message.member.nickname? message.member.nickname : message.member.user.username} appreciates ${args.join(" ")}!`;
         client.sendMessage(message, messageSend);
     }
     else {
