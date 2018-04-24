@@ -62,7 +62,7 @@ client.on("message", (message) => {
     if (message.author.bot) return;
 
     let possibleGreetings = ["hello", "hi", "yo", "hey", "greetings", "good morning", "morning", "good afternoon",
-        "afternoon", "good evening", "evening", "hoi", "howdy", "sup", "wassup", "what's up"];
+        "afternoon", "good evening", "evening", "howdy", "sup", "wassup", "what's up"];
     let possibleReferences = ["alveria", "guys", "y'all", "all you", "everyone", "everybody"];
 
     // Respond to greetings
@@ -70,12 +70,14 @@ client.on("message", (message) => {
         possibleReferences.forEach(reference => {
             if (message.content.toLowerCase().startsWith(greeting + " " + reference)) {
                 if (client.isSaru(message)) {
-                    message.reply("Hi..");
-                } else {
-                    message.reply("Hello");
-                    return;
+                    message.reply("Hi...");
+                } else if (!client.isSaru(message) && message.content.toLowerCase().startsWith("hoi " + reference)) {
+                    message.reply("Hello, but please...don't");
                 }
-                
+                else {
+                    message.reply("Hello");
+                }
+                return;
             }
         });
     });
