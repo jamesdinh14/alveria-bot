@@ -70,6 +70,7 @@ client.on("message", (message) => {
         possibleReferences.forEach(reference => {
             if (message.content.toLowerCase().startsWith(greeting + " " + reference)) {
                 message.reply("Hello");
+                return;
             }
         });
     });
@@ -78,6 +79,12 @@ client.on("message", (message) => {
     let possibleLoves = ["i love you", "i love", "ily", "<3"];
     if (message.content.toLowerCase().startsWith(possibleLoves + " Alveria")) {
         message.reply("I love you too!");
+        return;
+    }
+
+    if (message.content.toLowerCase().includes("rotisserie")) {
+        message.channel.send("Uh...rotisserie?");
+        return;
     }
 
     // 
