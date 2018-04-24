@@ -74,7 +74,8 @@ client.on("message", (message) => {
         });
     });
 
-    let possibleLoves = ["I love you", "I love", "ily", "<3"];
+    // Respond to "I love you"
+    let possibleLoves = ["i love you", "i love", "ily", "<3"];
     if (message.content.toLowerCase().startsWith(possibleLoves + " Alveria")) {
         message.reply("I love you too!");
     }
