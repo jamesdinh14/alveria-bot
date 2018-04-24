@@ -71,11 +71,7 @@ client.on("message", (message) => {
             if (message.content.toLowerCase().startsWith(greeting + " " + reference)) {
                 if (client.isSaru(message)) {
                     message.reply("Hi...");
-<<<<<<< HEAD
                 } else if (!client.isSaru(message) && message.content.toLowerCase().startsWith("hoi " + reference)) {
-=======
-                } else if (!client.isSaru(message) && message.content.toLowerCase().startsWith("Hoi " + reference)) {
->>>>>>> 1ea4711b38a75debbbd71f5ba93de9d3c83870ca
                     message.reply("Hello, but please...don't");
                 }
                 else {
