@@ -89,11 +89,6 @@ client.on("message", (message) => {
         return;
     }
 
-    if (message.content.toLowerCase().includes("rotisserie")) {
-        message.channel.send("Uh...rotisserie?");
-        return;
-    }
-
     // 
     if (!message.content.startsWith(client.prefix)) return;
 
