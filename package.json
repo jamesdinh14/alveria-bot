@@ -30,6 +30,7 @@
     "discord.js": "^11.3.2",
     "dotenv": "^5.0.1",
     "enmap": "^2.1.0",
-    "moment": "^2.22.0"
+    "moment": "^2.22.0",
+    "watson-developer-cloud": "^3.9.1"
   }
 }

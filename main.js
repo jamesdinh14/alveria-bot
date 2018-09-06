@@ -8,9 +8,13 @@ const { promisify } = require('util');
 const readdir = promisify(require("fs").readdir);
 const Enmap = require('enmap');
 
+// IBM Watson
+var watsonAssistantV1 = require('watson-developer-cloud/assistant/v1');
+
 // Initialize variables
 client.commands = new Enmap();
 client.prefix = "a$";
+client.isChatting = false;
 
 require('./functions.js')(client);
 client.logger = require("./util/Logger");
@@ -19,6 +23,13 @@ client.logger = require("./util/Logger");
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').load();
 }
+
+// Set up Watson Assistant service wrapper
+var service = new watsonAssistantV1({
+    version: process.env.WATSON_VERSION,
+    iam_apikey: process.env.WATSON_API_KEY,
+    url: process.env.WATSON_URL
+});
 
 // Async wrapper. Courtesy of guidebot
 const init = async () => {
@@ -58,7 +69,7 @@ fs.readdir("./events/", (err, files) => {
 
 client.on("message", (message) => {
 
-    // Will not respond to a bot or if the prefix is not there
+    // Will not respond to a bot
     if (message.author.bot) return;
 
     let possibleGreetings = ["hello", "hi", "yo", "hey", "greetings", "good morning", "morning", "good afternoon",
@@ -89,7 +100,16 @@ client.on("message", (message) => {
         return;
     }
 
-    // 
+    // If in chat mode and the message doesn't start with the prefix
+    // communicate with IBM Watson
+    if (client.isChatting && !message.content.startsWith(client.prefix)) {
+        service.message({
+            workspace_id: process.env.WATSON_WORKSPACE_ID
+        }, (err, response) => {
+            client.processWatsonResponse(message, err, response);
+        });
+    }
+    
     if (!message.content.startsWith(client.prefix)) return;
 
     // Split the prefix, command, and arguments

@@ -51,6 +51,20 @@ module.exports = (client) => {
     return message.author.id === process.env.SARU_ID;
   }
 
+  // IBM Watson processing function
+  client.processWatsonResponse = (message, err, response) => {
+    if (err) {
+      message.channel.send('An error occured.');
+      client.logger.error(err);
+      return;
+    }
+
+    // Display output from dialog, if any
+    if (response.output.text.length != 0) {
+      message.channel.send(response.output.text[0]);
+    }
+  }
+
   // Courtesy of guidebot
   // <Array>.random() returns a single random element from an array
   // [1, 2, 3, 4, 5].random() can return 1, 2, 3, 4 or 5.
