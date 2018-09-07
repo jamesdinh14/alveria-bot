@@ -9,12 +9,13 @@ const readdir = promisify(require("fs").readdir);
 const Enmap = require('enmap');
 
 // IBM Watson
-var watsonAssistantV1 = require('watson-developer-cloud/assistant/v1');
+const watsonAssistantV1 = require('watson-developer-cloud/assistant/v1');
 
 // Initialize variables
 client.commands = new Enmap();
 client.prefix = "a$";
 client.isChatting = false;
+client.watsonContext = {};
 
 require('./functions.js')(client);
 client.logger = require("./util/Logger");
@@ -24,8 +25,8 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').load();
 }
 
-// Set up Watson Assistant service wrapper
-var service = new watsonAssistantV1({
+// Setup IBM Watson Assistant service wrapper
+let service = new watsonAssistantV1({
     version: process.env.WATSON_VERSION,
     iam_apikey: process.env.WATSON_API_KEY,
     url: process.env.WATSON_URL
@@ -103,11 +104,22 @@ client.on("message", (message) => {
     // If in chat mode and the message doesn't start with the prefix
     // communicate with IBM Watson
     if (client.isChatting && !message.content.startsWith(client.prefix)) {
-        service.message({
-            workspace_id: process.env.WATSON_WORKSPACE_ID
-        }, (err, response) => {
-            client.processWatsonResponse(message, err, response);
-        });
+        if (message.content.length > 0) {
+            if (client.isSaru(message)) {
+                client.watsonContext.username = "Saru";
+            } else {
+                client.watsonContext.username = message.member.nickname? message.member.nickname : message.member.user.username;
+            }
+
+            service.message({
+                workspace_id: process.env.WATSON_WORKSPACE_ID,
+                input: { text: message.content },
+                context: client.watsonContext
+            }, (err, response) => {
+                client.processWatsonResponse(message, err, response);
+            });
+        }
+        
     }
     
     if (!message.content.startsWith(client.prefix)) return;

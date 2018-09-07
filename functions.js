@@ -58,10 +58,11 @@ module.exports = (client) => {
       client.logger.error(err);
       return;
     }
-
+    
     // Display output from dialog, if any
     if (response.output.text.length != 0) {
       message.channel.send(response.output.text[0]);
+      client.watsonContext = response.context;
     }
   }
 
