@@ -15,6 +15,7 @@ exports.run = (client, message, args) => {
 
     if (client.isChatting) {
         message.channel.send('Alveria is ready to chat.');
+        client.chatChannel = message.channel;
     } else {
         message.channel.send('Alveria will stop chatting.');
         client.watsonContext = {};

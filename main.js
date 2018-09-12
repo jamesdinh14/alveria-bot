@@ -15,6 +15,7 @@ const watsonAssistantV1 = require('watson-developer-cloud/assistant/v1');
 client.commands = new Enmap();
 client.prefix = "a$";
 client.isChatting = false;
+client.chatChannel = null;
 client.watsonContext = {};
 
 require('./functions.js')(client);
@@ -104,6 +105,10 @@ client.on("message", (message) => {
     // If in chat mode and the message doesn't start with the prefix
     // communicate with IBM Watson
     if (client.isChatting && !message.content.startsWith(client.prefix)) {
+        if (message.channel != client.chatChannel) {
+            return;
+        }
+
         if (message.content.length > 0) {
             if (client.isSaru(message)) {
                 client.watsonContext.username = "Saru";
@@ -119,7 +124,6 @@ client.on("message", (message) => {
                 client.processWatsonResponse(message, err, response);
             });
         }
-        
     }
     
     if (!message.content.startsWith(client.prefix)) return;
